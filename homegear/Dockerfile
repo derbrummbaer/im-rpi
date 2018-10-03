@@ -68,21 +68,21 @@ RUN apt-get update && \
     homegear-nodes-extra \
     homegear-homematicbidcos \
     homegear-homematicwired \
-    homegear-insteon \
     homegear-max \
-    homegear-philipshue \
-    homegear-sonos \
-    homegear-kodi \
-    homegear-ipcam \
-    homegear-beckhoff \
-    homegear-knx \
-    homegear-enocean \
-    homegear-intertechno \
-    homegear-mbus \
-    homegear-ccu2 \
     homegear-influxdb \
 	-qy
 
+#    homegear-insteon \
+#    homegear-philipshue \
+#    homegear-sonos \
+#    homegear-kodi \
+#    homegear-ipcam \
+#    homegear-beckhoff \
+#    homegear-knx \
+#    homegear-enocean \
+#    homegear-intertechno \
+#    homegear-mbus \
+#    homegear-ccu2 \
 #    homegear-zwave \
 
 ############################################################
