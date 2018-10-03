@@ -1,68 +1,134 @@
-    ############################################################
-    # Dockerfile to build homegear Image
-    # based on Dockerhub Homegear Image
-    ############################################################
-    # Container Homegear für Automation-rpi
-    ############################################################
-    # Source repository: https://hub.docker.com/r/homegear/rpi-homegear/
+############################################################
+# Dockerfile zum erstellen eines Dockercontainers für
+# homegear
+############################################################
+
+############################################################
+# Argument Variables from YAML File
+############################################################
+
+FROM resin/rpi-raspbian:stretch
+
+# File Author / Maintainer
+MAINTAINER Sven Berger
+
+############################################################
+############################################################
+# USE CROSS-BUILD for Raspberry PI Images
+############################################################
+############################################################
+
+#COPY bin/ /usr/bin/
+RUN [ "cross-build-start" ]
+
+############################################################
+# don't ask for stupid things
+############################################################
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN echo APT::Install-Recommends "0"; >> /etc/apt/apt.conf
+RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
+
+############################################################
+# Environment Variables
+############################################################
+
+############################################################
+# User Ändern
+############################################################
+
+############################################################
+# Upgrade Software: Installed
+############################################################
+
+# Repository für Pilight
+RUN apt-get update && \
+	apt-get install apt-transport-https wget ca-certificates apt-utils gnupg -qy
+
+############################################################
+# Install Software: Homegear
+############################################################
 
 
-    # Set the base Image
-    FROM homegear/rpi-homegear:stable
-
+RUN echo 'deb https://apt.homegear.eu/Debian/ stretch/' >> /etc/apt/sources.list.d/homegear.list && \
+    wget https://apt.homegear.eu/Release.key | apt-key add -
     
-    # File Author / Maintainer
-    MAINTAINER Sven Berger
+RUN apt-get update && \
+    apt-get dist-upgrade -qy && \
+    apt-get install libzip4 libavahi-client3 libavahi-client-dev insserv -qy
 
-    ############################################################
-    ############################################################
-    # USE CROSS-BUILD for Raspberry PI Images
-    ############################################################
-    ############################################################
+RUN apt-get update && \
+    apt-get dist-upgrade -qy && \
+    apt-get install \
+	homegear \
+    homegear-management \
+    homegear-webssh \
+    homegear-adminui \
+    homegear-nodes-core \
+    homegear-nodes-extra \
+    homegear-homematicbidcos \
+    homegear-homematicwired \
+    homegear-insteon \
+    homegear-max \
+    homegear-philipshue \
+    homegear-sonos \
+    homegear-kodi \
+    homegear-ipcam \
+    homegear-beckhoff \
+    homegear-knx \
+    homegear-enocean \
+    homegear-intertechno \
+    homegear-zwave \
+    homegear-mbus \
+    homegear-ccu2 \
+    homegear-influxdb \
+	-qy
 
-    ############################################################
-    # don't ask for stupid things
-    ############################################################
+############################################################
+# Remove Apt Data
+############################################################
 
-    ############################################################
-    # Environment Variables
-    ############################################################
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-    ############################################################
-    # Update Repository and upgrade Software
-    ############################################################
+############################################################
+# Copy External Data
+############################################################
 
-    ############################################################
-    # Konfigure timezone and locale
-    ############################################################
+RUN rm -f /etc/homegear/dh1024.pem; \
+    rm -f /etc/homegear/homegear.crt; \
+    rm -f /etc/homegear/homegear.key; \
+    cp -R /etc/homegear /etc/homegear.config; \
+    cp -R /var/lib/homegear /var/lib/homegear.data
 
-    ############################################################
-    # User anlegen
-    ############################################################
+############################################################
+# Copy Start Scripts
+############################################################
 
-    ############################################################
-    # HomeVerzeichnis mit Sticky Bit versehen
-    ############################################################
+COPY scripte/run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
-    ############################################################
-    # Update Apt and Upgrade Software
-    ############################################################
+############################################################
+# Folders needed
+############################################################
 
-    ############################################################
-    # Remove Apt Data
-    ############################################################
+VOLUME ["/etc/homegear", "/var/lib/homegear", "/var/log/homegear"]
 
-    ############################################################
-    # Install gosu
-    ############################################################
+############################################################
+# Ports needed
+############################################################
 
-    ############################################################
-    ############################################################
-    # USE CROSS-BUILD for Raspberry PI Images
-    ############################################################
-    ############################################################
+EXPOSE 2001 2002 2003
 
-    ############################################################
-    # Container Start
-    ############################################################
+############################################################
+############################################################
+# USE CROSS-BUILD for Raspberry PI Images
+############################################################
+############################################################
 
+RUN [ "cross-build-end" ]
+
+############################################################
+# Container Start
+############################################################
+
+ENTRYPOINT ["/bin/bash", "-c", "/usr/local/bin/run.sh"]

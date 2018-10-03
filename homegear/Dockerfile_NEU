@@ -41,19 +41,19 @@ RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
 # Upgrade Software: Installed
 ############################################################
 
-RUN apt-get update && \
-	apt-get install wget apt-transport-https wget ca-certificates apt-utils gnupg -qy
-
-############################################################
-# Install Software: Pilight
-############################################################
-
 # Repository für Pilight
+RUN apt-get update && \
+	apt-get install wget -qy
+
 RUN echo "deb http://apt.pilight.org/ stable main" > /etc/apt/sources.list.d/pilight.list && \
 	wget -O - https://apt.pilight.org/pilight.key | apt-key add -
 
 RUN apt-get update && \
     apt-get dist-upgrade -qy
+
+############################################################
+# Install Software: Pilight
+############################################################
 
 RUN apt-get update && \
     apt-get dist-upgrade -qy && \
