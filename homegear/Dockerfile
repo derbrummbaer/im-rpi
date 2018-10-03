@@ -10,6 +10,7 @@
     # Set the base Image
     FROM homegear/rpi-homegear:stable
 
+    
     # File Author / Maintainer
     MAINTAINER Sven Berger
 
