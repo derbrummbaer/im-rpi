@@ -10,6 +10,8 @@ WORKDIR /opt/iobroker/
 
 ADD scripte/run.sh run.sh
 
+RUN npm install -g npm@4
+
 RUN npm install iobroker --unsafe-perm && \
     echo $(hostname) > .install_host && \
     chmod +x run.sh
