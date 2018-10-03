@@ -51,7 +51,7 @@ RUN apt-get update && \
 
 
 RUN echo 'deb https://apt.homegear.eu/Debian/ stretch/' >> /etc/apt/sources.list.d/homegear.list && \
-    wget https://apt.homegear.eu/Release.key | apt-key add -
+    wget -O - https://apt.homegear.eu/Release.key | apt-key add -
     
 RUN apt-get update && \
     apt-get dist-upgrade -qy && \
