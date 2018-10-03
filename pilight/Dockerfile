@@ -8,7 +8,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys \
 	&& apt-get update \
 	&& apt-get install -y \
 		pilight=8.1.1 \
-		pilight-webgui=8.1 \
+		pilight-webgui=8.4 \
 	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
