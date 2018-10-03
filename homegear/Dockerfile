@@ -78,11 +78,12 @@ RUN apt-get update && \
     homegear-knx \
     homegear-enocean \
     homegear-intertechno \
-    homegear-zwave \
     homegear-mbus \
     homegear-ccu2 \
     homegear-influxdb \
 	-qy
+
+#    homegear-zwave \
 
 ############################################################
 # Remove Apt Data
