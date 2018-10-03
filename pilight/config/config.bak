@@ -12,6 +12,7 @@
     		"webserver-root": "/usr/local/share/pilight/",
     		"webserver-http-port": 5052,
     		"webserver-cache": 1
+			"gpio-platform": "raspberrypizero"
     	},
     	"hardware": {
     		"433gpio": {
