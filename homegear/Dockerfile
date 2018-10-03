@@ -50,7 +50,7 @@ RUN apt-get update && \
 ############################################################
 
 
-RUN echo 'deb https://apt.homegear.eu/Debian/ stretch/' >> /etc/apt/sources.list.d/homegear.list && \
+RUN echo 'deb https://apt.homegear.eu/Raspbian/ stretch/' >> /etc/apt/sources.list.d/homegear.list && \
     wget -O - https://apt.homegear.eu/Release.key | apt-key add -
     
 RUN apt-get update && \
@@ -70,20 +70,21 @@ RUN apt-get update && \
     homegear-homematicwired \
     homegear-max \
     homegear-influxdb \
+    homegear-insteon \
+    homegear-philipshue \
+    homegear-sonos \
+    homegear-kodi \
+    homegear-ipcam \
+    homegear-beckhoff \
+    homegear-knx \
+    homegear-enocean \
+    homegear-intertechno \
+    homegear-mbus \
+    homegear-ccu2 \
+    homegear-zwave \
 	-qy
 
-#    homegear-insteon \
-#    homegear-philipshue \
-#    homegear-sonos \
-#    homegear-kodi \
-#    homegear-ipcam \
-#    homegear-beckhoff \
-#    homegear-knx \
-#    homegear-enocean \
-#    homegear-intertechno \
-#    homegear-mbus \
-#    homegear-ccu2 \
-#    homegear-zwave \
+
 
 ############################################################
 # Remove Apt Data
