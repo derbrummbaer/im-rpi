@@ -73,7 +73,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ############################################################
 
 RUN mkdir /etc/pilight.config && cp -r /etc/pilight/* /etc/pilight.config
-COPY config/config.json /etc/pilight.config/
+COPY config/config.bak /etc/pilight.config/
 
 ############################################################
 # Copy Start Scripts
@@ -92,7 +92,7 @@ VOLUME ["/etc/pilight", "/var/log"]
 # Ports needed
 ############################################################
 
-EXPOSE 5052 8083
+EXPOSE 5051 5052
 
 ############################################################
 ############################################################
