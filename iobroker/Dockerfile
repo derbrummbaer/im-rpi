@@ -1,13 +1,14 @@
 ############################################################
 # Dockerfile zum erstellen eines Dockercontainers für
 # iobroker
+# inspired by https://github.com/Locke/docker-iobroker
 ############################################################
 
 ############################################################
 # Argument Variables from YAML File
 ############################################################
 
-FROM resin/rpi-raspbian:stretch
+FROM resin/raspberrypi3-node:8
 
 # File Author / Maintainer
 MAINTAINER Sven Berger
@@ -42,40 +43,20 @@ RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
 ############################################################
 
 RUN apt-get update && \
-	apt-get install wget apt-transport-https wget ca-certificates apt-utils gnupg -qy
+	apt-get full-upgrade -qy
 
 ############################################################
 # Install Software: IoBroker
 ############################################################
 
-ENV V_NODEJS=v8.12.0
-ENV H_NODEJS=armv71
-
-# Node.js installieren
-# RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-#     echo "Hat geklappt"
-
-# RUN apt-get update && \
-#     apt-get install -qy build-essential libavahi-compat-libdnssd-dev libudev-dev libpam0g-dev nodejs
-
-WORKDIR /tmp
-
-RUN wget "http://nodejs.org/dist/$V_NODEJS/node-$V_NODEJS-linux-$H_NODEJS.tar.gz" && \
-    tar -xvf "node-$V_NODEJS-linux-$H_NODEJS.tar.gz"  -C /usr/local --strip-components=1 && \
-    rm "node-$V_NODEJS-linux-$H_NODEJS.tar.gz" && \
-    ln -s /usr/local/bin/node /usr/bin/nodejs
-
-# NPM Downgrade wg. Bug in NPM5
-RUN npm install -g npm@4
-
-# Installation von IOBroker
-
 RUN mkdir -p /opt/iobroker/ && chmod 777 /opt/iobroker
 
 WORKDIR /opt/iobroker/
 
+RUN npm install -g npm@4
+
 RUN npm install iobroker --unsafe-perm && \
-    echo $(hostname) > .install_host    
+    echo $(hostname) > .install_host
 
 ############################################################
 # Remove Apt Data
