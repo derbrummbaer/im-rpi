@@ -71,9 +71,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN mkdir -p /opt/iobroker.data/iobroker-data && \
     mv /opt/iobroker/iobroker-data/* /opt/iobroker.data/iobroker-data && \
     mkdir -p /opt/iobroker.data/log && \
-    mv /opt/iobroker/log/* /opt/iobroker.data/log && \
     mkdir -p /opt/iobroker.data/node_modules && \
     mv /opt/iobroker/node_modules/* /opt/iobroker.data/node_modules
+# mv /opt/iobroker/log/* /opt/iobroker.data/log && \
 
 ############################################################
 # Copy Start Scripts
