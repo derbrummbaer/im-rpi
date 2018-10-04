@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if  [ "$(ls -A /opt/iobroker)" ]; then
+if  ! [ "$(ls -A /opt/iobroker)" ]; then
     echo "Neu Installation, Verschiebe Daten"
     mv /opt/iobroker.data /opt/iobroker
     cd /opt/iobroker
