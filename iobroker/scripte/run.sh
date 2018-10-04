@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if  [ "$(ls -A /opt/iobroker)" ] then
+if  [ "$(ls -A /opt/iobroker)" ]; then
     mv /opt/iobroker.data /opt/iobroker
     cd /opt/iobroker
 else
