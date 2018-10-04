@@ -51,20 +51,18 @@ RUN apt-get update && \
 ENV V_NODEJS=v8.12.0
 
 # Node.js installieren
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
-    echo "Hat geklappt"
-    
-RUN apt-get update && \
-    apt-get install -qy build-essential libavahi-compat-libdnssd-dev libudev-dev libpam0g-dev nodejs
+# RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
+#     echo "Hat geklappt"
+
+# RUN apt-get update && \
+#     apt-get install -qy build-essential libavahi-compat-libdnssd-dev libudev-dev libpam0g-dev nodejs
 
 WORKDIR /tmp
 
-# RUN wget "http://nodejs.org/dist/$V_NODEJS/node-$V_NODEJS-linux-armv6l.tar.gz" && \
-#     tar -xvf "node-$V_NODEJS-linux-armv6l.tar.gz"  -C /usr/local --strip-components=1 && \
-#     rm "node-$V_NODEJS-linux-armv6l.tar.gz" && \
-#     ln -s /usr/local/bin/node /usr/bin/nodejs && \
-#     cd .. && \
-#     rm -rf /tmp/*
+RUN wget "http://nodejs.org/dist/$V_NODEJS/node-$V_NODEJS-linux-armv7hf.tar.gz" && \
+    tar -xvf "node-$V_NODEJS-linux-armv7hf.tar.gz"  -C /usr/local --strip-components=1 && \
+    rm "node-$V_NODEJS-linux-armv7hf.tar.gz" && \
+    ln -s /usr/local/bin/node /usr/bin/nodejs
 
 # NPM Downgrade wg. Bug in NPM5
 RUN npm install -g npm@4
