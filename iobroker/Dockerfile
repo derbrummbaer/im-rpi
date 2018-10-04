@@ -68,7 +68,9 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Copy External Data
 ############################################################
 
-RUN mv /opt/iobroker /opt/iobroker.data
+RUN mv /opt/iobroker/iobroker-data /opt/iobroker.data && \
+    mv /opt/iobroker/logs /opt/iobroker.data && \
+    mv /opt/iobroker/node_modules /opt/iobroker.data
 
 ############################################################
 # Copy Start Scripts
@@ -81,7 +83,9 @@ RUN chmod +x /usr/local/bin/run.sh
 # Folders needed
 ############################################################
 
-VOLUME ["/opt/iobroker/"]
+VOLUME ["/opt/iobroker/iobroker-data"]
+VOLUME ["/opt/iobroker/log"]
+VOLUME ["/opt/iobroker/node_modules"]
 
 ############################################################
 # Ports needed
