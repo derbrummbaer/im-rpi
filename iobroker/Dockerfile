@@ -43,7 +43,7 @@ RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
 ############################################################
 
 RUN apt-get update && \
-	apt-get full-upgrade -qy
+	apt-get dist-upgrade -qy
 
 ############################################################
 # Install Software: IoBroker
@@ -72,8 +72,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 # Copy Start Scripts
 ############################################################
 
-ADD scripte/run.sh run.sh
-RUN chmod +x run.sh
+ADD scripte/run.sh /usr/local/bin/run.sh
+RUN chmod +x /usr/local/bin/run.sh
 
 ############################################################
 # Folders needed
@@ -99,4 +99,4 @@ RUN [ "cross-build-end" ]
 # Container Start
 ############################################################
 
-CMD 	["/opt/iobroker/run.sh"]
+CMD 	["/usr/local/bin/run.sh"]
