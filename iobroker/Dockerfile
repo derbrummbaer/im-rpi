@@ -69,7 +69,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ############################################################
 
 RUN mv /opt/iobroker/iobroker-data /opt/iobroker.data && \
-    mv /opt/iobroker/logs /opt/iobroker.data && \
+    mv /opt/iobroker/log /opt/iobroker.data && \
     mv /opt/iobroker/node_modules /opt/iobroker.data
 
 ############################################################
@@ -106,3 +106,6 @@ RUN [ "cross-build-end" ]
 ############################################################
 
 CMD 	["/usr/local/bin/run.sh"]
+
+# Docker run Command
+# docker run -ti --rm -p 8081:8081 -v /root/dockerdata/iobroker/iobroker-data:/opt/iobroker/iobroker-data -v /root/dockerdata/iobroker/log:/opt/iobroker/log -v /root/dockerdata/iobroker/node_modules:/opt/iobroker/node_modules --name iobroker -t derbrummbaer/im-auto-iobroker-rpi:test
