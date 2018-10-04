@@ -2,7 +2,10 @@
 
 if  ! [ "$(ls -A /opt/iobroker/iobroker-data)" ]; then
     echo "Neu Installation, Verschiebe Daten"
-    mv /opt/iobroker.data/* /opt/iobroker
+    mv /opt/iobroker.data/node_modules/* /opt/iobroker/node_modules
+    mv /opt/iobroker.data/iobroker-data/* /opt/iobroker/iobroker-data
+    mv /opt/iobroker.data/log/* /opt/iobroker/log
+    rm -r /opt/iobroker.data
     cd /opt/iobroker
 else
     echo "Installation schon vorhanden"
