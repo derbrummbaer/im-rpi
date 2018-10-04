@@ -43,7 +43,7 @@ RUN echo APT::Install-Suggests "0"; >> /etc/apt/apt.conf
 ############################################################
 
 RUN apt-get update && \
-	apt-get dist-upgrade -qy
+	apt-get full-upgrade -qy
 
 ############################################################
 # Install Software: IoBroker
@@ -67,6 +67,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 ############################################################
 # Copy External Data
 ############################################################
+
+RUN mv /opt/iobroker /opt/iobroker.data
 
 ############################################################
 # Copy Start Scripts
