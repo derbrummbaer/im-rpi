@@ -49,6 +49,7 @@ RUN apt-get update && \
 ############################################################
 
 ENV V_NODEJS=v8.12.0
+ENV H_NODEJS=armv71
 
 # Node.js installieren
 # RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && \
@@ -59,9 +60,9 @@ ENV V_NODEJS=v8.12.0
 
 WORKDIR /tmp
 
-RUN wget "http://nodejs.org/dist/$V_NODEJS/node-$V_NODEJS-linux-armv7hf.tar.gz" && \
-    tar -xvf "node-$V_NODEJS-linux-armv7hf.tar.gz"  -C /usr/local --strip-components=1 && \
-    rm "node-$V_NODEJS-linux-armv7hf.tar.gz" && \
+RUN wget "http://nodejs.org/dist/$V_NODEJS/node-$V_NODEJS-linux-$H_NODEJS.tar.gz" && \
+    tar -xvf "node-$V_NODEJS-linux-$H_NODEJS.tar.gz"  -C /usr/local --strip-components=1 && \
+    rm "node-$V_NODEJS-linux-$H_NODEJS.tar.gz" && \
     ln -s /usr/local/bin/node /usr/bin/nodejs
 
 # NPM Downgrade wg. Bug in NPM5
